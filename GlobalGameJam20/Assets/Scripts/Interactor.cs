@@ -30,7 +30,7 @@ public class Interactor : MonoBehaviour
         
     }
 
-    public void ShowDialogText(string text, bool personLeft)
+    public void ShowDialogText(string text, bool personLeft, AudioClip clip = null)
     {
 
     }

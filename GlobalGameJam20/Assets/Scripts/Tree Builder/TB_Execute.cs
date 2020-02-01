@@ -28,7 +28,12 @@ public class TB_Execute : MonoBehaviour
     private ExecState state = ExecState.QUESTION;
 
 
+    private List<AnimationStopper> toStopAnims = new List<AnimationStopper>();
+
+
     private MusicController musicController = null;
+
+    private AnimationFinder[] animationFinders = null;
 
     private void Start()
     {
@@ -42,10 +47,23 @@ public class TB_Execute : MonoBehaviour
                 break;
             }
         }
+
+        animationFinders = GameObject.FindObjectsOfType<AnimationFinder>();
     }
 
     private void Update()
     {
+        for (int i = 0; i < toStopAnims.Count; i++)
+        {
+            toStopAnims[i].stopIn -= Time.deltaTime;
+            if (toStopAnims[i].stopIn <= 0f)
+            {
+                toStopAnims[i].animator.SetBool(toStopAnims[i].animationClip, false);
+                toStopAnims.RemoveAt(i);
+                i--;
+            }
+        }
+
         if (RUN && wasRunning == false)
         {
             resetAllGlows();
@@ -98,7 +116,61 @@ public class TB_Execute : MonoBehaviour
                         }
                         else if (curAction.GetType() == typeof(TB_ActionSpeak))
                         {
+                            TB_ActionSpeak actionSpeak = (TB_ActionSpeak)curAction;
 
+                            interactor.ShowDialogText(actionSpeak.SpeakText, actionSpeak.PersonSpeakIndex == 0, actionSpeak.SpeakClip);
+                        }
+                        else if (curAction.GetType() == typeof(TB_ActionSound))
+                        {
+                            TB_ActionSound actionSound = (TB_ActionSound)curAction;
+
+                            GameObject gamAudioSource = new GameObject("Sound " + actionSound.Clip.name);
+                            gamAudioSource.AddComponent<AudioSource>();
+                            AudioSource audioSource = gamAudioSource.GetComponent<AudioSource>();
+                            audioSource.clip = actionSound.Clip;
+                            audioSource.volume = actionSound.Volume;
+                            audioSource.loop = false;
+                            audioSource.Play();
+
+                            Destroy(gamAudioSource, actionSound.Clip.length + 2f);
+                        }
+                        else if (curAction.GetType() == typeof(TB_ActionAnimation))
+                        {
+                            TB_ActionAnimation actionAnimation = (TB_ActionAnimation)curAction;
+
+                            bool foundTarget = false;
+                            for (int i = 0; i < animationFinders.Length; i++)
+                            {
+                                if (animationFinders[i].animatorName == actionAnimation.AnimatorTarget)
+                                {
+                                    foundTarget = true;
+
+                                    if (actionAnimation.Duration == -2f)
+                                    {
+                                        animationFinders[i].GetComponent<Animator>().SetBool(actionAnimation.AnimationClipName, false);
+                                    }
+                                    else if (actionAnimation.Duration == -1f)
+                                    {
+                                        animationFinders[i].GetComponent<Animator>().SetBool(actionAnimation.AnimationClipName, true);
+                                    }
+                                    else
+                                    {
+                                        animationFinders[i].GetComponent<Animator>().SetBool(actionAnimation.AnimationClipName, true);
+
+                                        AnimationStopper animStop = new AnimationStopper();
+                                        animStop.animationClip = actionAnimation.AnimationClipName;
+                                        animStop.animator = animationFinders[i].GetComponent<Animator>();
+                                        animStop.stopIn = actionAnimation.Duration;
+
+                                        toStopAnims.Add(animStop);
+                                    }
+                                }
+                            }
+
+                            if (!foundTarget)
+                            {
+                                Debug.LogError("Didn't find animation target. Is a AnimationFinder attached to the Animator object?");
+                            }
                         }
 
 
@@ -190,4 +262,12 @@ public class TB_Execute : MonoBehaviour
             state = ExecState.ACTION;
         }
     }
+}
+
+
+public class AnimationStopper
+{
+    public Animator animator;
+    public string animationClip = "";
+    public float stopIn = 0f;
 }

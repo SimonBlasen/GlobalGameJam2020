@@ -25,6 +25,22 @@ public class TB_ActionSpeak : TB_Action
     private Transform cubeTransform;
     private TextMeshPro tmp;
 
+    public string SpeakText
+    {
+        get
+        {
+            return text;
+        }
+    }
+
+    public AudioClip SpeakClip
+    {
+        get
+        {
+            return speakClip;
+        }
+    }
+
     // Start is called before the first frame update
     new void Start()
     {

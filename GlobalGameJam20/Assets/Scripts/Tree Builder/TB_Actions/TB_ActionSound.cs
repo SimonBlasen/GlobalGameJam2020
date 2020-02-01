@@ -13,13 +13,31 @@ public class TB_ActionSound : TB_Action
     
     [SerializeField]
     private AudioClip clip;
+    [SerializeField]
+    private float volume;
     [Space]
     [SerializeField]
     private bool PLAY = false;
 
     private AudioClip oldName = null;
 
-    private TextMeshPro tmp;
+    private TextMeshPro tmp;#
+
+    public AudioClip Clip
+    {
+        get
+        {
+            return clip;
+        }
+    }
+
+    public float Volume
+    {
+        get
+        {
+            return volume;
+        }
+    }
 
     // Start is called before the first frame update
     new void Start()
