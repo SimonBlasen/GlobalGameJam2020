@@ -59,6 +59,10 @@ public class TB_Questions : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (oldOutDialogues == null || outDialogues == null || oldOutDialogues.Length != outDialogues.Length)
+        {
+            UpdateOutDiagStringArray();
+        }
         for (int i = 0; i < outDialogues.Length; i++)
         {
             if (oldOutDialogues[i] != outDialogues[i])
@@ -125,19 +129,19 @@ public class TB_Questions : MonoBehaviour
                 tmpQuestions.text += "Q" + i.ToString() + ": " + questions[i] + "\n";
             }
 
-            Debug.Log("Amount questions: " + questions.Count);
+            //Debug.Log("Amount questions: " + questions.Count);
         }
 
     }
 
     public void RegisterDialog(TB_Dialog dialog)
     {
-        Debug.Log("Register. Was: " + outTBDialogues.Count);
+        //Debug.Log("Register. Was: " + outTBDialogues.Count);
         if (outTBDialogues.Contains(dialog) == false)
         {
             outTBDialogues.Add(dialog);
         }
-        Debug.Log("Register. Is: " + outTBDialogues.Count);
+        //Debug.Log("Register. Is: " + outTBDialogues.Count);
 
         UpdateOutDiagStringArray();
     }
@@ -152,7 +156,7 @@ public class TB_Questions : MonoBehaviour
 
     public void DeRegisterDialog(TB_Dialog dialog)
     {
-        Debug.Log("De-Register. Is: " + outTBDialogues.Count);
+        //Debug.Log("De-Register. Is: " + outTBDialogues.Count);
         outTBDialogues.Remove(dialog);
 
         UpdateOutDiagStringArray();

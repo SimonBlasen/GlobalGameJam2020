@@ -24,7 +24,7 @@ public class cameraWiggler : MonoBehaviour
 
     private void Start()
     {
-        cameraStartPos.position = transform.position;
+        //cameraStartPos.position = transform.position;
         destination = transform.position;
     }
 

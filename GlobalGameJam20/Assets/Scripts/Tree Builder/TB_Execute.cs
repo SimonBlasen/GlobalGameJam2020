@@ -83,6 +83,8 @@ public class TB_Execute : MonoBehaviour
                     string[] toAsk = Utils<string>.Mix(curNode.Questions);
                     AskQuestion(toAsk);
 
+                    Debug.Log("Asking questions: " + toAsk.ToString());
+
                     state = ExecState.QUESTION_WAIT;
 
                     break;
@@ -110,18 +112,21 @@ public class TB_Execute : MonoBehaviour
                         // Actions
                         if (curAction.GetType() == typeof(TB_ActionMusicLayer))
                         {
+                            Debug.Log("Action Music Layer");
                             TB_ActionMusicLayer actionMusicLayer = (TB_ActionMusicLayer)curAction;
 
                             musicController.PlayLayers(actionMusicLayer.MusicLayerProps);
                         }
                         else if (curAction.GetType() == typeof(TB_ActionSpeak))
                         {
+                            Debug.Log("Action Speak");
                             TB_ActionSpeak actionSpeak = (TB_ActionSpeak)curAction;
 
                             interactor.ShowDialogText(actionSpeak.SpeakText, actionSpeak.PersonSpeakIndex == 0, actionSpeak.SpeakClip);
                         }
                         else if (curAction.GetType() == typeof(TB_ActionSound))
                         {
+                            Debug.Log("Action Sound");
                             TB_ActionSound actionSound = (TB_ActionSound)curAction;
 
                             GameObject gamAudioSource = new GameObject("Sound " + actionSound.Clip.name);
@@ -136,6 +141,7 @@ public class TB_Execute : MonoBehaviour
                         }
                         else if (curAction.GetType() == typeof(TB_ActionAnimation))
                         {
+                            Debug.Log("Action Animation");
                             TB_ActionAnimation actionAnimation = (TB_ActionAnimation)curAction;
 
                             bool foundTarget = false;
@@ -180,6 +186,7 @@ public class TB_Execute : MonoBehaviour
                     // Was last action
                     else
                     {
+                        Debug.Log("Last Action");
                         curNode = curDiag.QuestionTo;
                         state = ExecState.QUESTION;
                     }
