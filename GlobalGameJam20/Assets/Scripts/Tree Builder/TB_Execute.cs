@@ -70,7 +70,10 @@ public class TB_Execute : MonoBehaviour
                 i--;
             }
         }
-
+        if (RUN == false && isRunning)
+        {
+            isRunning = false;
+        }
         if (RUN && wasRunning == false)
         {
             resetAllGlows();
@@ -81,7 +84,7 @@ public class TB_Execute : MonoBehaviour
             state = ExecState.QUESTION;
             wasRunning = true;
 
-            isRunning = true;
+            //isRunning = true;
         }
         else if (RUN && wasRunning)
         {
@@ -306,9 +309,23 @@ public class TB_Execute : MonoBehaviour
         {
             if (curNode.Questions[i] == chosenQuestion)
             {
-                curDiag = curNode.OutDialogues[i];
-                actionIndex = 0;
-                state = ExecState.ACTION;
+                bool foundTag = false;
+                for (int j = 0; j < curNode.OutDialogues.Length; j++)
+                {
+                    if (curNode.OutDialogues[j].DiagTopTag == i.ToString())
+                    {
+                        curDiag = curNode.OutDialogues[j];
+                        actionIndex = 0;
+                        state = ExecState.ACTION;
+                        foundTag = true;
+                        break;
+                    }
+                }
+
+                if (!foundTag)
+                {
+                    Debug.LogError("Didnt find following dialog");
+                }
 
                 break;
             }
