@@ -73,8 +73,8 @@ public class TB_Questions : MonoBehaviour
                 {
                     if (oldOutDialogues[i] != outDialogues[i])
                     {
-                        outTBDialogues[i].DiagTopTag = outDialogues[i];
-                        outTBDialogues[i].dialogName = outDialogues[i];
+                        //outTBDialogues[i].DiagTopTag = outDialogues[i];
+                        //outTBDialogues[i].dialogName = outDialogues[i];
                         oldOutDialogues[i] = outDialogues[i];
                     }
                 }
@@ -229,7 +229,7 @@ public class TB_Questions : MonoBehaviour
             for (int i = 0; i < outTBDialogues.Count; i++)
             {
                 outDialogues[i] = outTBDialogues[i].dialogName;
-                outTBDialogues[i].DiagTopTag = outTBDialogues[i].dialogName;
+                //outTBDialogues[i].DiagTopTag = outTBDialogues[i].dialogName;
                 oldOutDialogues[i] = outTBDialogues[i].dialogName;
             }
         }
