@@ -13,6 +13,8 @@ public class TB_Execute : MonoBehaviour
 
     public bool RUN = false;
 
+    public NewspaperFlyer newsPaperFlyer;
+
     [SerializeField]
     private Interactor interactor;
 
@@ -93,12 +95,19 @@ public class TB_Execute : MonoBehaviour
                 case ExecState.QUESTION:
                     
                     curNode.IsGlowing = true;
-                    string[] toAsk = Utils<string>.Mix(curNode.Questions);
-                    AskQuestion(toAsk);
+                    if (curNode.endingIndex != -1)
+                    {
+                        newsPaperFlyer.Fly(curNode.endingIndex);
+                    }
+                    else
+                    {
+                        string[] toAsk = Utils<string>.Mix(curNode.Questions);
+                        AskQuestion(toAsk);
 
-                    Debug.Log("Asking questions: " + toAsk.ToString());
+                        Debug.Log("Asking questions: " + toAsk.ToString());
 
-                    state = ExecState.QUESTION_WAIT;
+                        state = ExecState.QUESTION_WAIT;
+                    }
 
                     break;
                 case ExecState.ACTION:
