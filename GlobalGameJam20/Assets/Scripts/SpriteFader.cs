@@ -21,6 +21,7 @@ public class SpriteFader : MonoBehaviour
 
         if (fadeOut)
         {
+            spriteRendererDest.size = spriteRenderer.size;
             spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 1f - s);
             spriteRendererDest.color = new Color(spriteRendererDest.color.r, spriteRendererDest.color.g, spriteRendererDest.color.b, s);
             if (s >= 1f)
