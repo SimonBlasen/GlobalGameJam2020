@@ -1848,6 +1848,11 @@ PrefabInstance:
       propertyPath: animation
       value: right_talk
       objectReference: {fileID: 0}
+    - target: {fileID: 664224653160820027, guid: 9c6166e7296af55408a1908a685fa4ea,
+        type: 3}
+      propertyPath: time
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 982697053833333437, guid: 9c6166e7296af55408a1908a685fa4ea,
         type: 3}
       propertyPath: m_textInfo.characterCount
@@ -5069,6 +5074,11 @@ PrefabInstance:
       propertyPath: text
       value: Allright allright, later tonight then....
       objectReference: {fileID: 0}
+    - target: {fileID: 664224653160820027, guid: 9c6166e7296af55408a1908a685fa4ea,
+        type: 3}
+      propertyPath: time
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 982697053833333437, guid: 9c6166e7296af55408a1908a685fa4ea,
         type: 3}
       propertyPath: m_textInfo.characterCount
@@ -6463,6 +6473,11 @@ PrefabInstance:
         type: 3}
       propertyPath: animation
       value: right_talk
+      objectReference: {fileID: 0}
+    - target: {fileID: 664224653160820027, guid: 9c6166e7296af55408a1908a685fa4ea,
+        type: 3}
+      propertyPath: time
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 982697053833333437, guid: 9c6166e7296af55408a1908a685fa4ea,
         type: 3}
@@ -13725,6 +13740,11 @@ PrefabInstance:
       propertyPath: text
       value: What would say about family planning, being here in this situation?
       objectReference: {fileID: 0}
+    - target: {fileID: 664224653160820027, guid: 9c6166e7296af55408a1908a685fa4ea,
+        type: 3}
+      propertyPath: time
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 982697053833333437, guid: 9c6166e7296af55408a1908a685fa4ea,
         type: 3}
       propertyPath: m_textInfo.characterCount
@@ -14196,6 +14216,11 @@ PrefabInstance:
         type: 3}
       propertyPath: animation
       value: right_talk
+      objectReference: {fileID: 0}
+    - target: {fileID: 664224653160820027, guid: 9c6166e7296af55408a1908a685fa4ea,
+        type: 3}
+      propertyPath: time
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 982697053833333437, guid: 9c6166e7296af55408a1908a685fa4ea,
         type: 3}
@@ -15118,6 +15143,11 @@ PrefabInstance:
         type: 3}
       propertyPath: text
       value: Allright allright, later tonight then....
+      objectReference: {fileID: 0}
+    - target: {fileID: 664224653160820027, guid: 9c6166e7296af55408a1908a685fa4ea,
+        type: 3}
+      propertyPath: time
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 982697053833333437, guid: 9c6166e7296af55408a1908a685fa4ea,
         type: 3}

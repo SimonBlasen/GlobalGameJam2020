@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Interactor : MonoBehaviour
@@ -29,6 +30,8 @@ public class Interactor : MonoBehaviour
     void Start()
     {
         mct.MouseClicked += Mct_MouseClicked;
+
+        tB_Execute.StartGame();
     }
 
     private void Mct_MouseClicked()
@@ -45,6 +48,10 @@ public class Interactor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
         mouseClickCooldown -= Time.deltaTime;
         if (mouseClickCooldown < 0f)
         {

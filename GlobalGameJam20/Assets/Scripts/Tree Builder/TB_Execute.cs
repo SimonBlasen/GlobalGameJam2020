@@ -38,6 +38,11 @@ public class TB_Execute : MonoBehaviour
     private AnimationFinder[] animationFinders = null;
     private SpriteFinder[] spriteFinders = null;
 
+    public void StartGame()
+    {
+        RUN = true;
+    }
+
     private void Start()
     {
         musicController = GameObject.FindObjectOfType<MusicController>();
