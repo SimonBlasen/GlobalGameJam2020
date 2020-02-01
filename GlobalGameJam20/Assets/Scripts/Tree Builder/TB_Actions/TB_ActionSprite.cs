@@ -19,6 +19,22 @@ public class TB_ActionSprite : TB_Action
     private SpriteRenderer spriteRenderer;
     private TextMeshPro tmp;
 
+    public string SpriteName
+    {
+        get
+        {
+            return spriteName;
+        }
+    }
+
+    public Sprite Sprite
+    {
+        get
+        {
+            return sprite;
+        }
+    }
+
     // Start is called before the first frame update
     new void Start()
     {

@@ -25,8 +25,9 @@ public class MusicController : MonoBehaviour
             GameObject aSource = new GameObject("MusicLayer_" + i.ToString());
             aSource.AddComponent<AudioSource>();
             sources[i] = aSource.GetComponent<AudioSource>();
-            sources[i].playOnAwake = false;
+            sources[i].playOnAwake = true;
             sources[i].volume = 0f;
+            sources[i].loop = true;
             sources[i].clip = musicLayers.layerClips[i];
             sources[i].Play();
 

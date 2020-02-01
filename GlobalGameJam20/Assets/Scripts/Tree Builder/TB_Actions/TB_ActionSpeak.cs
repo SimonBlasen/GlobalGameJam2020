@@ -16,6 +16,8 @@ public class TB_ActionSpeak : TB_Action
     [SerializeField]
     private AudioClip speakClip;
     [SerializeField]
+    private string animation;
+    [SerializeField]
     [TextArea(4, 4)]
     private string text = "";
 
@@ -96,6 +98,14 @@ public class TB_ActionSpeak : TB_Action
             {
                 tmp.alignment = TextAlignmentOptions.TopRight;
             }
+        }
+    }
+
+    public string SpeakAnimation
+    {
+        get
+        {
+            return animation;
         }
     }
 

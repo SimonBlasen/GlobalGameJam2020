@@ -23,6 +23,8 @@ public class Interactor : MonoBehaviour
     [SerializeField]
     private GameObject questionsPanel;
 
+    private float mouseClickCooldown = 0f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,26 +33,46 @@ public class Interactor : MonoBehaviour
 
     private void Mct_MouseClicked()
     {
-        tB_Execute.ContinueClick();
-        speakTextPanel.SetActive(false);
+        if (mouseClickCooldown <= 0f)
+        {
+            tB_Execute.ContinueClick();
+            speakTextPanel.SetActive(false);
+
+            mouseClickCooldown = 1f;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        mouseClickCooldown -= Time.deltaTime;
+        if (mouseClickCooldown < 0f)
+        {
+            mouseClickCooldown = 0f;
+        }
     }
 
+
+    private TextProgressiveWriter instTextProgressWriter = null;
     public void ShowDialogText(string text, bool personLeft, AudioClip clip = null)
     {
         speakTextPanel.SetActive(true);
         //speakText.text = (personLeft ? personLeftName : personRightName) +  ": " + text;
+
+        speakText.text = "";
+
+        if (instTextProgressWriter != null)
+        {
+            Destroy(instTextProgressWriter.gameObject);
+        }
+
         GameObject tpw = new GameObject("Text Progressive Writer");
         tpw.AddComponent<TextProgressiveWriter>();
         tpw.GetComponent<TextProgressiveWriter>().textMesh = speakText;
         tpw.GetComponent<TextProgressiveWriter>().timePerCiffer = 0.05f;
         tpw.GetComponent<TextProgressiveWriter>().goalText = (personLeft ? personLeftName : personRightName) + ": " + text;
 
+        instTextProgressWriter = tpw.GetComponent<TextProgressiveWriter>();
 
         if (clip != null)
         {

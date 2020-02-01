@@ -54,8 +54,18 @@ public class TB_ActionMusicLayer : TB_Action
             Start();
         }
 
-        if (oldName.Length != MusicLayers.Layers.Length || MusicLayers.Layers.Length != layers.Length)
+        if (oldName.Length != MusicLayers.Layers.Length)
         {
+            oldName = new bool[MusicLayers.Layers.Length];
+            for (int i = 0; i < layers.Length; i++)
+            {
+                oldName[i] = layers[i].onOff;
+            }
+        }
+
+        if (MusicLayers.Layers.Length != layers.Length)
+        {
+            Debug.Log("Reset action music");
             layers = new MusicLayerProp[MusicLayers.Layers.Length];
             for (int i = 0; i < layers.Length; i++)
             {

@@ -38,6 +38,7 @@ public class TB_Action : MonoBehaviour
     {
         if (oldTime != time)
         {
+            oldTime = time;
             if (timeText == null)
             {
                 Start();

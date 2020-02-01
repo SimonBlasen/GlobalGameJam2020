@@ -34,6 +34,7 @@ public class TB_Execute : MonoBehaviour
     private MusicController musicController = null;
 
     private AnimationFinder[] animationFinders = null;
+    private SpriteFinder[] spriteFinders = null;
 
     private void Start()
     {
@@ -49,8 +50,12 @@ public class TB_Execute : MonoBehaviour
         }
 
         animationFinders = GameObject.FindObjectsOfType<AnimationFinder>();
+        spriteFinders = GameObject.FindObjectsOfType<SpriteFinder>();
     }
 
+    private bool runningSpeakAnim = false;
+    private bool runningSpeakAnimLeftPerson = true;
+    private string runningSpeakAnimName = "";
     private void Update()
     {
         for (int i = 0; i < toStopAnims.Count; i++)
@@ -79,7 +84,8 @@ public class TB_Execute : MonoBehaviour
             switch (state)
             {
                 case ExecState.QUESTION:
-
+                    
+                    curNode.IsGlowing = true;
                     string[] toAsk = Utils<string>.Mix(curNode.Questions);
                     AskQuestion(toAsk);
 
@@ -94,7 +100,7 @@ public class TB_Execute : MonoBehaviour
                     {
                         curAction.IsGlowing = false;
                     }
-                    else if (curNode != null)
+                    if (curNode != null)
                     {
                         curNode.IsGlowing = false;
                     }
@@ -121,6 +127,20 @@ public class TB_Execute : MonoBehaviour
                         {
                             Debug.Log("Action Speak");
                             TB_ActionSpeak actionSpeak = (TB_ActionSpeak)curAction;
+
+                            if (actionSpeak.SpeakAnimation.Length > 0)
+                            {
+                                for (int i = 0; i < animationFinders.Length; i++)
+                                {
+                                    if (animationFinders[i].animatorName == (actionSpeak.PersonSpeakIndex == 0 ? "Left" : "Right") + "Person")
+                                    {
+                                        animationFinders[i].GetComponent<Animator>().SetBool(actionSpeak.SpeakAnimation, true);
+                                        runningSpeakAnim = true;
+                                        runningSpeakAnimLeftPerson = actionSpeak.PersonSpeakIndex == 0;
+                                        runningSpeakAnimName = actionSpeak.SpeakAnimation;
+                                    }
+                                }
+                            }
 
                             interactor.ShowDialogText(actionSpeak.SpeakText, actionSpeak.PersonSpeakIndex == 0, actionSpeak.SpeakClip);
                         }
@@ -176,6 +196,35 @@ public class TB_Execute : MonoBehaviour
                             if (!foundTarget)
                             {
                                 Debug.LogError("Didn't find animation target. Is a AnimationFinder attached to the Animator object?");
+                            }
+                        }
+                        else if (curAction.GetType() == typeof(TB_ActionSprite))
+                        {
+                            TB_ActionSprite actionSprite = (TB_ActionSprite)curAction;
+
+                            bool foundTarget = false;
+                            for (int i = 0; i < spriteFinders.Length; i++)
+                            {
+                                if (spriteFinders[i].spriteName == actionSprite.SpriteName)
+                                {
+                                    foundTarget = true;
+
+                                    SpriteRenderer[] children = spriteFinders[i].GetComponentsInChildren<SpriteRenderer>();
+                                    GameObject spriteFader = new GameObject("Sprite Fader");
+                                    spriteFader.AddComponent<SpriteFader>();
+                                    spriteFader.GetComponent<SpriteFader>().fadeTime = 5f;
+                                    spriteFader.GetComponent<SpriteFader>().fadeToSprite = actionSprite.Sprite;
+                                    spriteFader.GetComponent<SpriteFader>().spriteRenderer = children[0].sprite == null ? children[1] : children[0];
+                                    spriteFader.GetComponent<SpriteFader>().spriteRendererDest = children[1].sprite == null ? children[1] : children[0];
+                                    spriteFader.GetComponent<SpriteFader>().StartAnim();
+
+                                    //spriteFinders[i].GetComponent<SpriteRenderer>().sprite = actionSprite.Sprite;
+                                }
+                            }
+
+                            if (!foundTarget)
+                            {
+                                Debug.LogError("Didn't find sprite target. Is a SpriteFinder attached to the SpriteRenderer object?");
                             }
                         }
 
@@ -266,6 +315,20 @@ public class TB_Execute : MonoBehaviour
     {
         if (state == ExecState.ACTION_WAIT)
         {
+            if (runningSpeakAnim)
+            {
+                for (int i = 0; i < animationFinders.Length; i++)
+                {
+                    if (animationFinders[i].animatorName == (runningSpeakAnimLeftPerson ? "Left" : "Right") + "Person")
+                    {
+                        animationFinders[i].GetComponent<Animator>().SetBool(runningSpeakAnimName, false);
+                        runningSpeakAnim = false;
+                    }
+                }
+            }
+
+
+
             state = ExecState.ACTION;
         }
     }
