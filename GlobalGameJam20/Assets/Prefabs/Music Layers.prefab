@@ -44,7 +44,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   layerClips:
-  - {fileID: 8300000, guid: 7e88847fda5282e48978eb671b622942, type: 3}
-  - {fileID: 8300000, guid: 2d26f0bd22aa4224bbfb7edde19c7030, type: 3}
-  - {fileID: 8300000, guid: 1bba430b3060fdb4498b4dc19a00093a, type: 3}
-  - {fileID: 8300000, guid: 9c358fa23c8abf14ebb368243d434ea4, type: 3}
+  - {fileID: 8300000, guid: da7e525a8618ec4479300cf05f0f7d45, type: 3}
+  - {fileID: 8300000, guid: ab7d054dcb7b7fc48b0e0e69efdc3845, type: 3}
+  - {fileID: 8300000, guid: a053972f00e5596449280e5c9321b840, type: 3}
+  - {fileID: 8300000, guid: d7785dbaaf7bb654cb675b9cf9f88d2f, type: 3}
+  - {fileID: 8300000, guid: ae206bc7292c465479b81e2506654910, type: 3}
+  - {fileID: 8300000, guid: 714f77414ea785f4d828388d20086457, type: 3}
