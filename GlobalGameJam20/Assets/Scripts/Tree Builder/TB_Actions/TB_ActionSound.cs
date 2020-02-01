@@ -56,26 +56,29 @@ public class TB_ActionSound : TB_Action
     // Update is called once per frame
     new void Update()
     {
-        base.Update();
-        if (tmp == null)
+        if (!TB_Execute.isRunning)
         {
-            Start();
-        }
+            base.Update();
+            if (tmp == null)
+            {
+                Start();
+            }
 
-        if (oldName != clip)
-        {
-            oldName = clip;
-            tmp.text = clip.name;
-        }
+            if (oldName != clip)
+            {
+                oldName = clip;
+                tmp.text = clip.name;
+            }
 
-        if (PLAY)
-        {
-            PLAY = false;/*
+            if (PLAY)
+            {
+                PLAY = false;/*
             GetComponentInChildren<AudioSource>().clip = clip;
             GetComponentInChildren<AudioSource>().volume = 1f;
             GetComponentInChildren<AudioSource>().loop = false;
             GetComponentInChildren<AudioSource>().Play();*/
-            PublicAudioUtil.PlayClip(clip);
+                PublicAudioUtil.PlayClip(clip);
+            }
         }
     }
 }

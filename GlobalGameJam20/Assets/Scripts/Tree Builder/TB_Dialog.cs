@@ -50,63 +50,67 @@ public class TB_Dialog : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (actions != null && oldActionsCount != actions.Length)
+        if (!TB_Execute.isRunning)
         {
-            oldActionsCount = actions.Length;
-            attachedTrans.Clear();
-            attachedTrans = new List<Transform>();
-            attachedTrans.Add(textDiagIndex.transform);
-            for (int i = 0; i < actions.Length; i++)
+            if (actions != null && oldActionsCount != actions.Length)
             {
-                attachedTrans.Add(actions[i].transform);
+                oldActionsCount = actions.Length;
+                attachedTrans.Clear();
+                attachedTrans = new List<Transform>();
+                attachedTrans.Add(textDiagIndex.transform);
+                for (int i = 0; i < actions.Length; i++)
+                {
+                    attachedTrans.Add(actions[i].transform);
+                }
+
+                updateSelfRenderPos();
+            }
+            if (oldFrom != from)
+            {
+                if (oldFrom != null)
+                {
+                    oldFrom.DeRegisterDialog(this);
+                }
+
+                if (from != null)
+                {
+                    from.RegisterDialog(this);
+                }
+
+                oldFrom = from;
+
+                updateSelfRenderPos();
+            }
+            if (oldTo != to)
+            {
+                oldTo = to;
+
+                updateSelfRenderPos();
             }
 
-            updateSelfRenderPos();
-        }
-        if (oldFrom != from)
-        {
-            if (oldFrom != null)
-            {
-                oldFrom.DeRegisterDialog(this);
-            }
-            
             if (from != null)
             {
-                from.RegisterDialog(this);
+                if (oldFromPos != from.transform.position)
+                {
+                    oldFromPos = from.transform.position;
+                    updateSelfRenderPos();
+                }
+                if (oldName != dialogName)
+                {
+                    oldName = dialogName;
+                    from.UpdateOutDiagStringArray();
+                }
             }
-
-            oldFrom = from;
-
-            updateSelfRenderPos();
-        }
-        if (oldTo != to)
-        {
-            oldTo = to;
-
-            updateSelfRenderPos();
-        }
-
-        if (from != null)
-        {
-            if (oldFromPos != from.transform.position)
+            if (to != null)
             {
-                oldFromPos = from.transform.position;
-                updateSelfRenderPos();
-            }
-            if (oldName != dialogName)
-            {
-                oldName = dialogName;
-                from.UpdateOutDiagStringArray();
+                if (oldToPos != to.transform.position)
+                {
+                    oldToPos = to.transform.position;
+                    updateSelfRenderPos();
+                }
             }
         }
-        if (to != null)
-        {
-            if (oldToPos != to.transform.position)
-            {
-                oldToPos = to.transform.position;
-                updateSelfRenderPos();
-            }
-        }
+        
     }
 
     public TB_Action[] Actions

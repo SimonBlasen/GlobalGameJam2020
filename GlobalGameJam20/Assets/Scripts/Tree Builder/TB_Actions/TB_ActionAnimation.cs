@@ -71,37 +71,41 @@ public class TB_ActionAnimation : TB_Action
     // Update is called once per frame
     new void Update()
     {
-        base.Update();
-        if (tmp2 == null || tmp == null || tmp3 == null)
+        if (!TB_Execute.isRunning)
         {
-            Start();
-        }
+            base.Update();
+            if (tmp2 == null || tmp == null || tmp3 == null)
+            {
+                Start();
+            }
 
-        if (oldName != animationName)
-        {
-            oldName = animationName;
-            tmp.text = animationName;
-        }
-        if (oldTarget != target)
-        {
-            oldTarget = target;
-            tmp2.text = target;
-        }
-        if (oldDuration != duration)
-        {
-            oldDuration = duration;
-            if (duration == -1f)
+            if (oldName != animationName)
             {
-                tmp3.text = "Start...";
+                oldName = animationName;
+                tmp.text = animationName;
             }
-            else if (duration == -2f)
+            if (oldTarget != target)
             {
-                tmp3.text = "...Stop";
+                oldTarget = target;
+                tmp2.text = target;
             }
-            else
+            if (oldDuration != duration)
             {
-                tmp3.text = "Duration: " + duration.ToString("n2");
+                oldDuration = duration;
+                if (duration == -1f)
+                {
+                    tmp3.text = "Start...";
+                }
+                else if (duration == -2f)
+                {
+                    tmp3.text = "...Stop";
+                }
+                else
+                {
+                    tmp3.text = "Duration: " + duration.ToString("n2");
+                }
             }
         }
+        
     }
 }

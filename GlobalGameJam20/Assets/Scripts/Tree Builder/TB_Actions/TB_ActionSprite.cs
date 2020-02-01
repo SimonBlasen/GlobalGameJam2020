@@ -56,22 +56,25 @@ public class TB_ActionSprite : TB_Action
     // Update is called once per frame
     protected new void Update()
     {
-        base.Update();
-        if (spriteRenderer == null || tmp == null)
+        if (!TB_Execute.isRunning)
         {
-            Start();
-        }
-        if (oldSprite != sprite)
-        {
-            oldSprite = sprite;
+            base.Update();
+            if (spriteRenderer == null || tmp == null)
+            {
+                Start();
+            }
+            if (oldSprite != sprite)
+            {
+                oldSprite = sprite;
 
-            spriteRenderer.sprite = sprite;
-        }
+                spriteRenderer.sprite = sprite;
+            }
 
-        if (oldName != spriteName)
-        {
-            oldName = spriteName;
-            tmp.text = spriteName;
+            if (oldName != spriteName)
+            {
+                oldName = spriteName;
+                tmp.text = spriteName;
+            }
         }
     }
 }

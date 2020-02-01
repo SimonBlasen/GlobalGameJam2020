@@ -64,41 +64,45 @@ public class TB_ActionSpeak : TB_Action
     // Update is called once per frame
     new void Update()
     {
-        base.Update();
-        if (oldText != text)
+        if (!TB_Execute.isRunning)
         {
-            if (tmp == null)
+            base.Update();
+            if (oldText != text)
             {
-                Start();
+                if (tmp == null)
+                {
+                    Start();
+                }
+                oldText = text;
+                tmp.text = text;
             }
-            oldText = text;
-            tmp.text = text;
-        }
 
-        if (oldPerson != person)
-        {
-            if (cubeTransform == null)
+            if (oldPerson != person)
             {
-                Start();
-            }
-            oldPerson = person;
-            if (person == Person.LEFT)
-            {
-                cubeTransform.localPosition = new Vector3(-2.8f * 0f, 0f, 0f);
-            }
-            else
-            {
-                cubeTransform.localPosition = new Vector3(2.8f * 0f, 0f, 0f);
-            }
-            if (person == Person.LEFT)
-            {
-                tmp.alignment = TextAlignmentOptions.TopLeft;
-            }
-            else
-            {
-                tmp.alignment = TextAlignmentOptions.TopRight;
+                if (cubeTransform == null)
+                {
+                    Start();
+                }
+                oldPerson = person;
+                if (person == Person.LEFT)
+                {
+                    cubeTransform.localPosition = new Vector3(-2.8f * 0f, 0f, 0f);
+                }
+                else
+                {
+                    cubeTransform.localPosition = new Vector3(2.8f * 0f, 0f, 0f);
+                }
+                if (person == Person.LEFT)
+                {
+                    tmp.alignment = TextAlignmentOptions.TopLeft;
+                }
+                else
+                {
+                    tmp.alignment = TextAlignmentOptions.TopRight;
+                }
             }
         }
+        
     }
 
     public string SpeakAnimation

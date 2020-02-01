@@ -36,22 +36,26 @@ public class TB_Action : MonoBehaviour
 
     protected void Update()
     {
-        if (oldTime != time)
+        if (!TB_Execute.isRunning)
         {
-            oldTime = time;
-            if (timeText == null)
+            if (oldTime != time)
             {
-                Start();
-            }
-            if (time == -1f)
-            {
-                timeText.text = "Click";
-            }
-            else
-            {
-                timeText.text = "Time: " + time.ToString("n1");
+                oldTime = time;
+                if (timeText == null)
+                {
+                    Start();
+                }
+                if (time == -1f)
+                {
+                    timeText.text = "Click";
+                }
+                else
+                {
+                    timeText.text = "Time: " + time.ToString("n1");
+                }
             }
         }
+        
     }
 
     public float Time

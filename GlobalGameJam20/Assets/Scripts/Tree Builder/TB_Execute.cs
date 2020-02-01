@@ -56,6 +56,8 @@ public class TB_Execute : MonoBehaviour
     private bool runningSpeakAnim = false;
     private bool runningSpeakAnimLeftPerson = true;
     private string runningSpeakAnimName = "";
+
+    public static bool isRunning = false;
     private void Update()
     {
         for (int i = 0; i < toStopAnims.Count; i++)
@@ -78,6 +80,8 @@ public class TB_Execute : MonoBehaviour
 
             state = ExecState.QUESTION;
             wasRunning = true;
+
+            isRunning = true;
         }
         else if (RUN && wasRunning)
         {

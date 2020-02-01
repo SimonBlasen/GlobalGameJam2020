@@ -59,77 +59,80 @@ public class TB_Questions : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (oldOutDialogues == null || outDialogues == null || oldOutDialogues.Length != outDialogues.Length)
+        if (!TB_Execute.isRunning)
         {
-            UpdateOutDiagStringArray();
-        }
-        for (int i = 0; i < outDialogues.Length; i++)
-        {
-            if (oldOutDialogues[i] != outDialogues[i])
+            if (oldOutDialogues == null || outDialogues == null || oldOutDialogues.Length != outDialogues.Length)
             {
-                outTBDialogues[i].DiagTopTag = outDialogues[i];
-                outTBDialogues[i].dialogName = outDialogues[i];
-                oldOutDialogues[i] = outDialogues[i];
+                UpdateOutDiagStringArray();
             }
-        }
-
-        bool needClear = false;
-        if (oldQuestions[0] != question0)
-        {
-            needClear = true;
-            oldQuestions[0] = question0;
-        }
-        if (oldQuestions[1] != question1)
-        {
-            needClear = true;
-            oldQuestions[1] = question1;
-        }
-        if (oldQuestions[2] != question2)
-        {
-            needClear = true;
-            oldQuestions[2] = question2;
-        }
-        if (oldQuestions[3] != question3)
-        {
-            needClear = true;
-            oldQuestions[3] = question3;
-        }
-
-
-        if (needClear)
-        {
-            needClear = false;
-            questions.Clear();
-            questions = new List<string>();
-
-            if (question0.Length > 0)
+            for (int i = 0; i < outDialogues.Length; i++)
             {
-                questions.Add(question0);
-            }
-            if (question1.Length > 0)
-            {
-                questions.Add(question1);
-            }
-            if (question2.Length > 0)
-            {
-                questions.Add(question2);
-            }
-            if (question3.Length > 0)
-            {
-                questions.Add(question3);
+                if (oldOutDialogues[i] != outDialogues[i])
+                {
+                    outTBDialogues[i].DiagTopTag = outDialogues[i];
+                    outTBDialogues[i].dialogName = outDialogues[i];
+                    oldOutDialogues[i] = outDialogues[i];
+                }
             }
 
-            if (tmpQuestions == null)
+            bool needClear = false;
+            if (oldQuestions[0] != question0)
             {
-                Start();
+                needClear = true;
+                oldQuestions[0] = question0;
             }
-            tmpQuestions.text = "";
-            for (int i = 0; i < questions.Count; i++)
+            if (oldQuestions[1] != question1)
             {
-                tmpQuestions.text += "Q" + i.ToString() + ": " + questions[i] + "\n";
+                needClear = true;
+                oldQuestions[1] = question1;
+            }
+            if (oldQuestions[2] != question2)
+            {
+                needClear = true;
+                oldQuestions[2] = question2;
+            }
+            if (oldQuestions[3] != question3)
+            {
+                needClear = true;
+                oldQuestions[3] = question3;
             }
 
-            //Debug.Log("Amount questions: " + questions.Count);
+
+            if (needClear)
+            {
+                needClear = false;
+                questions.Clear();
+                questions = new List<string>();
+
+                if (question0.Length > 0)
+                {
+                    questions.Add(question0);
+                }
+                if (question1.Length > 0)
+                {
+                    questions.Add(question1);
+                }
+                if (question2.Length > 0)
+                {
+                    questions.Add(question2);
+                }
+                if (question3.Length > 0)
+                {
+                    questions.Add(question3);
+                }
+
+                if (tmpQuestions == null)
+                {
+                    Start();
+                }
+                tmpQuestions.text = "";
+                for (int i = 0; i < questions.Count; i++)
+                {
+                    tmpQuestions.text += "Q" + i.ToString() + ": " + questions[i] + "\n";
+                }
+
+                //Debug.Log("Amount questions: " + questions.Count);
+            }
         }
 
     }
