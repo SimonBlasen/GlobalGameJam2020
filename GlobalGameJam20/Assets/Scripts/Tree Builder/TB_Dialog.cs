@@ -109,6 +109,30 @@ public class TB_Dialog : MonoBehaviour
         }
     }
 
+    public TB_Action[] Actions
+    {
+        get
+        {
+            return actions;
+        }
+    }
+
+    public TB_Questions QuestionFrom
+    {
+        get
+        {
+            return from;
+        }
+    }
+
+    public TB_Questions QuestionTo
+    {
+        get
+        {
+            return to;
+        }
+    }
+
     private void updateSelfRenderPos()
     {
         if (to != null && from != null && to != from)

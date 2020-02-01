@@ -142,6 +142,14 @@ public class TB_Questions : MonoBehaviour
         UpdateOutDiagStringArray();
     }
 
+    public TB_Dialog[] OutDialogues
+    {
+        get
+        {
+            return outTBDialogues.ToArray();
+        }
+    }
+
     public void DeRegisterDialog(TB_Dialog dialog)
     {
         Debug.Log("De-Register. Is: " + outTBDialogues.Count);
@@ -201,6 +209,32 @@ public class TB_Questions : MonoBehaviour
             outDialogues[i] = outTBDialogues[i].dialogName;
             outTBDialogues[i].DiagTopTag = outTBDialogues[i].dialogName;
             oldOutDialogues[i] = outTBDialogues[i].dialogName;
+        }
+    }
+
+    public string[] Questions
+    {
+        get
+        {
+            List<string> questions = new List<string>();
+            if (question0.Length > 0)
+            {
+                questions.Add(question0);
+            }
+            if (question1.Length > 0)
+            {
+                questions.Add(question1);
+            }
+            if (question2.Length > 0)
+            {
+                questions.Add(question2);
+            }
+            if (question3.Length > 0)
+            {
+                questions.Add(question3);
+            }
+
+            return questions.ToArray();
         }
     }
 }

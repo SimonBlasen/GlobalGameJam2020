@@ -12,6 +12,10 @@ public class TB_Action : MonoBehaviour
 
     protected TextMeshPro timeText;
 
+    private MeshRenderer cubeMeshRenderer = null;
+
+    private Color glowDefaultColor = Color.black;
+
     protected void Start()
     {
         Transform[] children = GetComponentsInChildren<Transform>();
@@ -21,6 +25,11 @@ public class TB_Action : MonoBehaviour
             {
                 timeText = children[i].GetComponent<TextMeshPro>();
                 break;
+            }
+            else if (children[i].name == "Cube")
+            {
+                cubeMeshRenderer = children[i].GetComponent<MeshRenderer>();
+                glowDefaultColor = cubeMeshRenderer.sharedMaterial.color;
             }
         }
     }
@@ -40,6 +49,40 @@ public class TB_Action : MonoBehaviour
             else
             {
                 timeText.text = "Time: " + time.ToString("n1");
+            }
+        }
+    }
+
+    public float Time
+    {
+        get
+        {
+            return time;
+        }
+    }
+
+    private bool isGlowing = false;
+    public bool IsGlowing
+    {
+        get
+        {
+            return isGlowing;
+        }
+        set
+        {
+            isGlowing = value;
+
+            if (isGlowing)
+            {
+                Material copy = new Material(cubeMeshRenderer.sharedMaterial);
+                copy.color = Color.green;
+                cubeMeshRenderer.sharedMaterial = copy;
+            }
+            else
+            {
+                Material copy = new Material(cubeMeshRenderer.sharedMaterial);
+                copy.color = glowDefaultColor;
+                cubeMeshRenderer.sharedMaterial = copy;
             }
         }
     }
