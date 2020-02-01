@@ -7,6 +7,8 @@ using UnityEngine;
 public class TB_Questions : MonoBehaviour
 {
     [SerializeField]
+    private bool isStartNode = false;
+    [SerializeField]
     [TextArea(1, 3)]
     private string question0;
     [SerializeField]
@@ -31,6 +33,10 @@ public class TB_Questions : MonoBehaviour
 
     private TextMeshPro tmpQuestions;
 
+    private MeshRenderer cubeMeshRenderer = null;
+
+    private Color glowDefaultColor = Color.black;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,6 +47,11 @@ public class TB_Questions : MonoBehaviour
             {
                 tmpQuestions = children[i].GetComponent<TextMeshPro>();
                 break;
+            }
+            else if (children[i].name == "Cube")
+            {
+                cubeMeshRenderer = children[i].GetComponent<MeshRenderer>();
+                glowDefaultColor = cubeMeshRenderer.sharedMaterial.color;
             }
         }
     }
@@ -137,6 +148,40 @@ public class TB_Questions : MonoBehaviour
         outTBDialogues.Remove(dialog);
 
         UpdateOutDiagStringArray();
+    }
+
+    public bool IsStartNode
+    {
+        get
+        {
+            return isStartNode;
+        }
+    }
+
+    private bool isGlowing = false;
+    public bool IsGlowing
+    {
+        get
+        {
+            return isGlowing;
+        }
+        set
+        {
+            isGlowing = value;
+
+            if (isGlowing)
+            {
+                Material copy = new Material(cubeMeshRenderer.sharedMaterial);
+                copy.color = Color.green;
+                cubeMeshRenderer.sharedMaterial = copy;
+            }
+            else
+            {
+                Material copy = new Material(cubeMeshRenderer.sharedMaterial);
+                copy.color = glowDefaultColor;
+                cubeMeshRenderer.sharedMaterial = copy;
+            }
+        }
     }
 
     public void UpdateOutDiagStringArray()

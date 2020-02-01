@@ -14,6 +14,8 @@ public class TB_ActionSpeak : TB_Action
     [SerializeField]
     private Person person;
     [SerializeField]
+    private AudioClip speakClip;
+    [SerializeField]
     [TextArea(4, 4)]
     private string text = "";
 
@@ -24,8 +26,9 @@ public class TB_ActionSpeak : TB_Action
     private TextMeshPro tmp;
 
     // Start is called before the first frame update
-    void Start()
+    new void Start()
     {
+        base.Start();
         Transform[] children = GetComponentsInChildren<Transform>();
         for (int i = 0; i < children.Length; i++)
         {
@@ -41,8 +44,9 @@ public class TB_ActionSpeak : TB_Action
     }
 
     // Update is called once per frame
-    void Update()
+    new void Update()
     {
+        base.Update();
         if (oldText != text)
         {
             if (tmp == null)
@@ -62,11 +66,19 @@ public class TB_ActionSpeak : TB_Action
             oldPerson = person;
             if (person == Person.LEFT)
             {
-                cubeTransform.localPosition = new Vector3(-2.8f, 0f, 0f);
+                cubeTransform.localPosition = new Vector3(-2.8f * 0f, 0f, 0f);
             }
             else
             {
-                cubeTransform.localPosition = new Vector3(2.8f, 0f, 0f);
+                cubeTransform.localPosition = new Vector3(2.8f * 0f, 0f, 0f);
+            }
+            if (person == Person.LEFT)
+            {
+                tmp.alignment = TextAlignmentOptions.TopLeft;
+            }
+            else
+            {
+                tmp.alignment = TextAlignmentOptions.TopRight;
             }
         }
     }
