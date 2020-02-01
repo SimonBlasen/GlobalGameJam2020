@@ -21,7 +21,7 @@ public class TB_ActionSound : TB_Action
 
     private AudioClip oldName = null;
 
-    private TextMeshPro tmp;#
+    private TextMeshPro tmp;
 
     public AudioClip Clip
     {
