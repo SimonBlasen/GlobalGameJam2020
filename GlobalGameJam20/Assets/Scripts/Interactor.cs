@@ -25,6 +25,15 @@ public class Interactor : MonoBehaviour
     private GameObject questionsPanel;
     [SerializeField]
     private TextMeshProUGUI debugText;
+    [SerializeField]
+    private AudioClip clipLeftSpeak;
+    [SerializeField]
+    private AudioClip clipRightSpeak;
+    [SerializeField]
+    private GameObject jesusObj;
+
+    public Vector3 jesusDefRot;
+    public Vector3 jesusRightRot;
 
     private float mouseClickCooldown = 0f;
 
@@ -40,10 +49,11 @@ public class Interactor : MonoBehaviour
     {
         if (mouseClickCooldown <= 0f)
         {
+            destroySpeakAS();
             tB_Execute.ContinueClick();
             speakTextPanel.SetActive(false);
 
-            mouseClickCooldown = 1f;
+            mouseClickCooldown = 4f;
         }
     }
 
@@ -95,17 +105,49 @@ public class Interactor : MonoBehaviour
             GameObject gamAudioSource = new GameObject("Sound Speaker");
             gamAudioSource.AddComponent<AudioSource>();
             AudioSource audioSource = gamAudioSource.GetComponent<AudioSource>();
-            audioSource.clip = clip;
+
+            if (personLeft)
+            {
+                audioSource.clip = clipLeftSpeak;
+            }
+            else
+            {
+                audioSource.clip = clipRightSpeak;
+            }
+
+            //audioSource.clip = clip;
             audioSource.volume = 0.8f;
             audioSource.loop = false;
             audioSource.Play();
 
-            Destroy(gamAudioSource, clip.length + 2f);
+            speakAS = audioSource.gameObject;
+            //Destroy(gamAudioSource, clip.length + 2f);
+            Invoke("destroySpeakAS", clip.length + 2f);
+        }
+
+        if (personLeft)
+        {
+            jesusObj.transform.rotation = Quaternion.Euler(jesusDefRot);
+        }
+        else
+        {
+            jesusObj.transform.rotation = Quaternion.Euler(jesusRightRot);
+        }
+    }
+
+    private GameObject speakAS = null;
+    private void destroySpeakAS()
+    {
+        if (speakAS != null)
+        {
+            Destroy(speakAS);
+            speakAS = null;
         }
     }
 
     public void QuestionClicked(int index)
     {
+        mouseClickCooldown = 4f;
         //mct.GetComponent<Image>().enabled = true;
 
         if (index < askedQuestions.Length)
