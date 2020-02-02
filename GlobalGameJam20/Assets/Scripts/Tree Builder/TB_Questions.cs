@@ -39,6 +39,7 @@ public class TB_Questions : MonoBehaviour
     public int endingIndex = -1;
     [SerializeField]
     public bool FREEZE = false;
+    public string hat = "";
 
     private string[] oldOutDialogues;
 

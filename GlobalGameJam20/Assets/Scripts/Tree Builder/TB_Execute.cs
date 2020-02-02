@@ -6,6 +6,8 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class TB_Execute : MonoBehaviour
 {
+    public string[] allHats = new string[] { "papst", "soviet", "geldgeil", "latex", "america", "blumen", "heilig" };
+
     private enum ExecState
     {
         QUESTION, QUESTION_WAIT, ACTION, ACTION_WAIT, 
@@ -139,6 +141,41 @@ public class TB_Execute : MonoBehaviour
                             Debug.Log("Asking questions: " + toAsk.ToString());
 
                             state = ExecState.QUESTION_WAIT;
+
+
+
+                            // H_ATS
+                            if (curNode.hat.Length > 0)
+                            {
+                                bool foundTarget = false;
+                                for (int i = 0; i < animationFinders.Length; i++)
+                                {
+                                    if (animationFinders[i].animatorName == "LeftPerson")
+                                    {
+                                        foundTarget = true;
+
+                                        if (actionAnimation.Duration == -2f)
+                                        {
+                                            animationFinders[i].GetComponent<Animator>().SetBool(actionAnimation.AnimationClipName, false);
+                                        }
+                                        else if (actionAnimation.Duration == -1f)
+                                        {
+                                            animationFinders[i].GetComponent<Animator>().SetBool("hat_" + curNode.hat, true);
+                                        }
+                                        else
+                                        {
+                                            animationFinders[i].GetComponent<Animator>().SetBool(actionAnimation.AnimationClipName, true);
+
+                                            AnimationStopper animStop = new AnimationStopper();
+                                            animStop.animationClip = actionAnimation.AnimationClipName;
+                                            animStop.animator = animationFinders[i].GetComponent<Animator>();
+                                            animStop.stopIn = actionAnimation.Duration;
+
+                                            toStopAnims.Add(animStop);
+                                        }
+                                    }
+                                }
+                            }
                         }
 
                     }
