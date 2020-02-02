@@ -3,11 +3,22 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+[System.Serializable]
+public struct FactorPuncter
+{
+    public float moneyFamily;
+    public float intimicy;
+    public float convProg;
+    public float trustFun;
+}
+
 [ExecuteInEditMode]
 public class TB_Questions : MonoBehaviour
 {
     [SerializeField]
     private bool isStartNode = false;
+    [SerializeField]
+    public bool isFactorNode = false;
     [SerializeField]
     [TextArea(1, 3)]
     private string question0;
@@ -22,6 +33,8 @@ public class TB_Questions : MonoBehaviour
     private string question3;
     [SerializeField]
     private string[] outDialogues;
+    [SerializeField]
+    public FactorPuncter[] factors;
     [SerializeField]
     public int endingIndex = -1;
     [SerializeField]

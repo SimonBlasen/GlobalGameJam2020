@@ -106,12 +106,41 @@ public class TB_Execute : MonoBehaviour
                     }
                     else
                     {
-                        string[] toAsk = Utils<string>.Mix(curNode.Questions);
-                        AskQuestion(toAsk);
+                        if (curNode.isFactorNode)
+                        {
+                            Debug.Log("Factor question node");
+                            Debug.Log("Factors: " + StaticParameters.factorMoneyFamily.ToString() + ", " + StaticParameters.factorIntimicy + ", " + StaticParameters.factorConvProg + ", " + StaticParameters.factorTrustFun);
 
-                        Debug.Log("Asking questions: " + toAsk.ToString());
+                            string[] toAsk = curNode.Questions;
+                            float maxVal = Mathf.Max(StaticParameters.factorConvProg, StaticParameters.factorIntimicy, StaticParameters.factorMoneyFamily, StaticParameters.factorTrustFun);
+                            if (maxVal == StaticParameters.factorConvProg)
+                            {
+                                AnswerQuestion("ConvProg");
+                            }
+                            else if (maxVal == StaticParameters.factorMoneyFamily)
+                            {
+                                AnswerQuestion("MoneyFamily");
+                            }
+                            else if (maxVal == StaticParameters.factorIntimicy)
+                            {
+                                AnswerQuestion("Intimicy");
+                            }
+                            else
+                            {
+                                AnswerQuestion("TrustFun");
+                            }
 
-                        state = ExecState.QUESTION_WAIT;
+                        }
+                        else
+                        {
+                            string[] toAsk = Utils<string>.Mix(curNode.Questions);
+                            AskQuestion(toAsk);
+
+                            Debug.Log("Asking questions: " + toAsk.ToString());
+
+                            state = ExecState.QUESTION_WAIT;
+                        }
+
                     }
 
                     break;
@@ -329,6 +358,13 @@ public class TB_Execute : MonoBehaviour
                     if (curNode.OutDialogues[j].DiagTopTag == i.ToString())
                     {
                         curDiag = curNode.OutDialogues[j];
+                        if (curNode.factors.Length > i)
+                        {
+                            StaticParameters.factorMoneyFamily += curNode.factors[i].moneyFamily;
+                            StaticParameters.factorConvProg += curNode.factors[i].convProg;
+                            StaticParameters.factorIntimicy += curNode.factors[i].intimicy;
+                            StaticParameters.factorTrustFun += curNode.factors[i].trustFun;
+                        }
                         actionIndex = 0;
                         state = ExecState.ACTION;
                         foundTag = true;

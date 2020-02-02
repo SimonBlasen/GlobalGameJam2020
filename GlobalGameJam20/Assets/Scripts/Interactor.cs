@@ -23,6 +23,8 @@ public class Interactor : MonoBehaviour
     private GameObject speakTextPanel;
     [SerializeField]
     private GameObject questionsPanel;
+    [SerializeField]
+    private TextMeshProUGUI debugText;
 
     private float mouseClickCooldown = 0f;
 
@@ -48,6 +50,13 @@ public class Interactor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (debugText != null)
+        {
+            debugText.text = "Money Family: " + StaticParameters.factorMoneyFamily +
+                "\nConv Prog: " + StaticParameters.factorConvProg +
+                "\nIntimicy: " + StaticParameters.factorIntimicy
+                + "\nTrust Fun: " + StaticParameters.factorTrustFun;
+        }
         if (Input.GetKeyDown(KeyCode.R))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
