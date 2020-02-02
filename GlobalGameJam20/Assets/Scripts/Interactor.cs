@@ -53,7 +53,7 @@ public class Interactor : MonoBehaviour
             tB_Execute.ContinueClick();
             speakTextPanel.SetActive(false);
 
-            mouseClickCooldown = 4f;
+            mouseClickCooldown = 2f;
         }
     }
 
@@ -100,7 +100,7 @@ public class Interactor : MonoBehaviour
 
         instTextProgressWriter = tpw.GetComponent<TextProgressiveWriter>();
 
-        if (clip != null)
+        if (true ||clip != null)
         {
             GameObject gamAudioSource = new GameObject("Sound Speaker");
             gamAudioSource.AddComponent<AudioSource>();
@@ -122,7 +122,7 @@ public class Interactor : MonoBehaviour
 
             speakAS = audioSource.gameObject;
             //Destroy(gamAudioSource, clip.length + 2f);
-            Invoke("destroySpeakAS", clip.length + 2f);
+            Invoke("destroySpeakAS", audioSource.clip.length + 2f);
         }
 
         if (personLeft)
@@ -147,7 +147,7 @@ public class Interactor : MonoBehaviour
 
     public void QuestionClicked(int index)
     {
-        mouseClickCooldown = 4f;
+        mouseClickCooldown = 2f;
         //mct.GetComponent<Image>().enabled = true;
 
         if (index < askedQuestions.Length)

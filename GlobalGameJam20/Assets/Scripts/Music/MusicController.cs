@@ -51,7 +51,7 @@ public class MusicController : MonoBehaviour
         {
             if (musicLayerProps[i].onOff)
             {
-                volumesDest[i] = musicLayerProps[i].volume;
+                volumesDest[i] = musicLayerProps[i].volume * 0.35f;
             }
             else
             {

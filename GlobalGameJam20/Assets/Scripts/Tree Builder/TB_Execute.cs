@@ -160,14 +160,24 @@ public class TB_Execute : MonoBehaviour
                                         animationFinders[i].GetComponent<Animator>().SetBool("hat_" + curNode.hat, true);
                                         
                                     }
-                                    else if (animationFinders[i].animatorName == "RightPerson")
+                                }
+                            }
+
+
+
+                            if (curNode.hatRight.Length > 0)
+                            {
+                                bool foundTarget = false;
+                                for (int i = 0; i < animationFinders.Length; i++)
+                                {
+                                    if (animationFinders[i].animatorName == "RightPerson")
                                     {
                                         for (int j = 0; j < allHats.Length; j++)
                                         {
                                             animationFinders[i].GetComponent<Animator>().SetBool("hat_" + allHats[j], false);
                                         }
 
-                                        animationFinders[i].GetComponent<Animator>().SetBool("hat_" + curNode.hat, true);
+                                        animationFinders[i].GetComponent<Animator>().SetBool("hat_" + curNode.hatRight, true);
 
                                     }
                                 }
