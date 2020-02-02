@@ -152,27 +152,23 @@ public class TB_Execute : MonoBehaviour
                                 {
                                     if (animationFinders[i].animatorName == "LeftPerson")
                                     {
-                                        foundTarget = true;
-
-                                        if (actionAnimation.Duration == -2f)
+                                        for (int j = 0; j < allHats.Length; j++)
                                         {
-                                            animationFinders[i].GetComponent<Animator>().SetBool(actionAnimation.AnimationClipName, false);
+                                            animationFinders[i].GetComponent<Animator>().SetBool("hat_" + allHats[j], false);
                                         }
-                                        else if (actionAnimation.Duration == -1f)
+                                        
+                                        animationFinders[i].GetComponent<Animator>().SetBool("hat_" + curNode.hat, true);
+                                        
+                                    }
+                                    else if (animationFinders[i].animatorName == "RightPerson")
+                                    {
+                                        for (int j = 0; j < allHats.Length; j++)
                                         {
-                                            animationFinders[i].GetComponent<Animator>().SetBool("hat_" + curNode.hat, true);
+                                            animationFinders[i].GetComponent<Animator>().SetBool("hat_" + allHats[j], false);
                                         }
-                                        else
-                                        {
-                                            animationFinders[i].GetComponent<Animator>().SetBool(actionAnimation.AnimationClipName, true);
 
-                                            AnimationStopper animStop = new AnimationStopper();
-                                            animStop.animationClip = actionAnimation.AnimationClipName;
-                                            animStop.animator = animationFinders[i].GetComponent<Animator>();
-                                            animStop.stopIn = actionAnimation.Duration;
+                                        animationFinders[i].GetComponent<Animator>().SetBool("hat_" + curNode.hat, true);
 
-                                            toStopAnims.Add(animStop);
-                                        }
                                     }
                                 }
                             }
