@@ -114,7 +114,7 @@ public class Interactor : MonoBehaviour
             {
                 audioSource.clip = clipRightSpeak;
             }
-
+            Debug.Log("Playing eak");
             //audioSource.clip = clip;
             audioSource.volume = 0.8f;
             audioSource.loop = false;
