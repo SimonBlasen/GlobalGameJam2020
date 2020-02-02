@@ -69,16 +69,7 @@ public class TB_ActionSound : TB_Action
                 oldName = clip;
                 tmp.text = clip.name;
             }
-
-            if (PLAY)
-            {
-                PLAY = false;/*
-            GetComponentInChildren<AudioSource>().clip = clip;
-            GetComponentInChildren<AudioSource>().volume = 1f;
-            GetComponentInChildren<AudioSource>().loop = false;
-            GetComponentInChildren<AudioSource>().Play();*/
-                PublicAudioUtil.PlayClip(clip);
-            }
+            
         }
     }
 }
@@ -87,7 +78,7 @@ public class TB_ActionSound : TB_Action
 public static class PublicAudioUtil
 {
 
-    public static void PlayClip(AudioClip clip, int startSample = 0, bool loop = false)
+    /*public static void PlayClip(AudioClip clip, int startSample = 0, bool loop = false)
     {
         System.Reflection.Assembly unityEditorAssembly = typeof(AudioImporter).Assembly;
         System.Type audioUtilClass = unityEditorAssembly.GetType("UnityEditor.AudioUtil");
@@ -102,6 +93,6 @@ public static class PublicAudioUtil
             null,
             new object[] { clip, startSample, loop }
         );
-    }
+    }*/
 
 } // class PublicAudioUtil
